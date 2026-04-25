@@ -1,0 +1,70 @@
+# EventFlow
+
+Static web app for an event business quote builder. EventFlow lets users configure an event, compare packages, add extras and prepare a professional proposal without requiring a backend.
+
+## Current Status
+
+Phase 1 is complete: the project has the base React/Vite setup, Tailwind CSS, Motion for React, lucide-react, Vitest and initial mock data.
+
+Next phase: build the quote pricing logic in `src/domain/pricing.ts` using TDD.
+
+## Stack
+
+- React
+- Vite
+- TypeScript
+- Tailwind CSS
+- Motion for React
+- lucide-react
+- date-fns
+- Vitest
+- localStorage planned for quote persistence
+- Vercel planned for deployment
+
+## Project Structure
+
+```text
+src/
+  components/     Reusable UI components
+  data/           Editable event, package and extras catalog
+  domain/         Types and pure business logic
+  hooks/          React hooks for quote state and persistence
+  styles/         Shared style helpers and future tokens
+  App.tsx         Temporary Phase 1 landing surface
+  main.tsx        React entry point
+```
+
+## Scripts
+
+```bash
+pnpm dev
+pnpm test
+pnpm lint
+pnpm build
+pnpm preview
+```
+
+## Documentation
+
+- `docs/contexto-minimo.md`: shortest handoff context for future AI/dev sessions.
+- `docs/fase-1-base.md`: what Phase 1 created and verified.
+- `eventflow-cotizador-interactivo.md`: full product spec and implementation direction.
+
+## Development Notes
+
+- Keep business logic in `src/domain`.
+- Keep editable catalog data in `src/data`.
+- Write tests before pricing, proposal or validation logic.
+- Avoid adding backend, auth, payments or admin panel in the MVP.
+- Keep the first screen focused on the working quote builder once the wizard exists.
+
+## Verification
+
+The current baseline was verified with:
+
+```bash
+pnpm test
+pnpm lint
+pnpm build
+```
+
