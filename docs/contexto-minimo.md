@@ -20,6 +20,23 @@ Fase 1 completada:
 - Repositorio git local inicializado en rama `main`.
 - Commit base creado: `4ea3a54 chore: scaffold eventflow base`.
 
+Fase 2 completada:
+
+- Logica de cotizacion creada en `src/domain/pricing.ts`.
+- Pruebas TDD agregadas en `src/domain/pricing.test.ts`.
+- El calculo devuelve subtotal de paquete, ajuste por tipo de evento, extras y total.
+- La logica valida que `guestCount` sea un entero positivo.
+- Registro de fase agregado en `docs/fase-2-logica-cotizacion.md`.
+
+Fase 3 completada:
+
+- Estado del cotizador creado en `src/hooks/useQuoteState.ts`.
+- Pruebas de estado agregadas en `src/hooks/useQuoteState.test.ts`.
+- Primer wizard visual creado en `src/App.tsx`.
+- La UI consume `calculateQuotePricing` y muestra precio en vivo.
+- Imagen local agregada en `public/event-setup.jpg`.
+- Registro de fase agregado en `docs/fase-3-wizard-inicial.md`.
+
 ## Estado GitHub
 
 GitHub CLI (`gh`) esta instalado, pero no hay sesion autenticada.
@@ -48,7 +65,7 @@ Despues de autenticar, crear el repo y subir:
 gh repo create eventflow-cotizador --private --source=. --remote=origin --push
 ```
 
-Recomendacion: mantenerlo privado mientras se construyen Fase 2 y el wizard. Hacerlo publico cuando tenga demo visual presentable.
+Recomendacion: mantenerlo privado mientras se construye el wizard. Hacerlo publico cuando tenga demo visual presentable.
 
 ## Stack
 
@@ -57,28 +74,49 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 ## Archivos Clave
 
 - `README.md`: resumen publico para GitHub.
-- `docs/fase-1-base.md`: registro de la fase actual.
-- `eventflow-cotizador-interactivo.md`: especificacion larga del producto.
+- `docs/fase-1-base.md`: registro de base tecnica.
+- `docs/fase-2-logica-cotizacion.md`: registro de logica de precios.
+- `docs/fase-3-wizard-inicial.md`: registro del wizard inicial.
+- `docs/eventflow-cotizador-interactivo.md`: especificacion larga del producto.
 - `src/data/eventTypes.ts`: tipos de evento.
 - `src/data/packages.ts`: paquetes.
 - `src/data/extras.ts`: extras.
 - `src/domain/types.ts`: tipos compartidos.
+- `src/domain/pricing.ts`: logica pura de cotizacion.
+- `src/domain/pricing.test.ts`: pruebas de logica de cotizacion.
+- `src/hooks/useQuoteState.ts`: estado del cotizador y pricing derivado.
+- `src/hooks/useQuoteState.test.ts`: pruebas de estado del cotizador.
+- `src/App.tsx`: wizard visual inicial.
 
 ## Siguiente Paso
 
-Fase 2: crear logica de cotizacion con TDD.
+Fase 4: crear propuesta final, texto para WhatsApp y accion de imprimir/guardar desde el navegador.
 
 Orden recomendado:
 
-1. Crear prueba `src/domain/pricing.test.ts`.
-2. Verla fallar porque `pricing.ts` no existe.
-3. Crear `src/domain/pricing.ts`.
-4. Implementar calculo minimo.
+1. Crear `src/domain/proposal.ts` con texto de propuesta y mensaje de WhatsApp.
+2. Probar la generacion de propuesta con Vitest.
+3. Conectar boton de propuesta en la UI.
+4. Agregar accion de imprimir con `window.print()`.
 5. Verificar con `pnpm test`, `pnpm lint` y `pnpm build`.
+
+## Ultima Validacion
+
+```bash
+pnpm test
+pnpm lint
+pnpm build
+```
+
+Resultado:
+
+- `pnpm test`: 3 archivos de prueba passed, 7 tests passed.
+- `pnpm lint`: sin errores reportados.
+- `pnpm build`: build generado correctamente en `dist/`.
 
 ## Reglas De Trabajo
 
-- No pasar a UI del wizard antes de tener la logica de precios.
+- La UI del wizard debe consumir `src/domain/pricing.ts`, no recrear calculos.
 - No agregar backend, login, pagos ni panel admin.
 - No meter calculos dentro de componentes React.
 - Mantener funciones puras en `src/domain`.
