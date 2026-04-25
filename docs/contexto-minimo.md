@@ -39,33 +39,27 @@ Fase 3 completada:
 
 ## Estado GitHub
 
-GitHub CLI (`gh`) esta instalado, pero no hay sesion autenticada.
-
-Bloqueo actual:
-
-```bash
-gh auth status
-```
-
-Resultado actual:
+Repositorio remoto configurado:
 
 ```text
-You are not logged into any GitHub hosts. To log in, run: gh auth login
+origin https://github.com/uicabg1/eventflow-cotizador.git
 ```
 
-Para subir el proyecto, primero ejecutar:
+GitHub CLI (`gh`) esta instalado y autenticado con la cuenta `uicabg1`.
+
+Ultimo push ejecutado:
 
 ```bash
-gh auth login
+git push origin main
 ```
 
-Despues de autenticar, crear el repo y subir:
+Resultado:
 
-```bash
-gh repo create eventflow-cotizador --private --source=. --remote=origin --push
+```text
+b2cdcd1 main -> main
 ```
 
-Recomendacion: mantenerlo privado mientras se construye el wizard. Hacerlo publico cuando tenga demo visual presentable.
+Recomendacion: mantenerlo privado mientras se construyen propuesta final, WhatsApp e impresion. Hacerlo publico cuando tenga demo visual presentable y flujo completo.
 
 ## Stack
 
