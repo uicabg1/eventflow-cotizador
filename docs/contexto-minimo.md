@@ -34,6 +34,7 @@ Fase 3 completada:
 - Pruebas de estado agregadas en `src/hooks/useQuoteState.test.ts`.
 - Primer wizard visual creado en `src/App.tsx`.
 - La UI consume `calculateQuotePricing` y muestra precio en vivo.
+- Copy visible de la app y catalogo renderizado en ingles.
 - Imagen local agregada en `public/event-setup.jpg`.
 - Registro de fase agregado en `docs/fase-3-wizard-inicial.md`.
 

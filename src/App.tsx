@@ -15,7 +15,7 @@ import { extras } from './data/extras'
 import { packages } from './data/packages'
 import { useQuoteState } from './hooks/useQuoteState'
 
-const currencyFormatter = new Intl.NumberFormat('es-MX', {
+const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'MXN',
   maximumFractionDigits: 0,
@@ -41,12 +41,12 @@ function App() {
                 EventFlow
               </p>
               <h1 className="mt-2 text-3xl font-semibold leading-tight md:text-5xl">
-                Cotizador para eventos listo para operar.
+                Event quotes ready for real client conversations.
               </h1>
             </div>
             <div className="flex items-center gap-2 rounded-md bg-[#18231f] px-3 py-2 text-sm font-medium text-white">
               <Sparkles aria-hidden="true" className="h-4 w-4 text-[#d8b764]" />
-              Precio en vivo
+              Live pricing
             </div>
           </header>
 
@@ -55,8 +55,8 @@ function App() {
               <div className="rounded-lg border border-[#ded4c4] bg-white p-4 shadow-sm">
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-semibold text-[#6f5b32]">1. Tipo de evento</p>
-                    <p className="text-sm text-[#66716a]">El multiplicador cambia el alcance.</p>
+                    <p className="text-sm font-semibold text-[#6f5b32]">1. Event type</p>
+                    <p className="text-sm text-[#66716a]">The multiplier adjusts the scope.</p>
                   </div>
                   <CalendarDays aria-hidden="true" className="h-5 w-5 text-[#7b5d26]" />
                 </div>
@@ -93,14 +93,14 @@ function App() {
                 <div className="rounded-lg border border-[#ded4c4] bg-white p-4 shadow-sm">
                   <div className="mb-4 flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-semibold text-[#6f5b32]">2. Invitados</p>
-                      <p className="text-sm text-[#66716a]">Rango comercial inicial.</p>
+                      <p className="text-sm font-semibold text-[#6f5b32]">2. Guests</p>
+                      <p className="text-sm text-[#66716a]">Initial planning range.</p>
                     </div>
                     <Users aria-hidden="true" className="h-5 w-5 text-[#7b5d26]" />
                   </div>
 
                   <label className="block text-sm font-medium text-[#3d4943]" htmlFor="guest-count">
-                    Cantidad estimada
+                    Estimated guest count
                   </label>
                   <input
                     className="mt-3 w-full rounded-lg border border-[#cfc3ae] bg-[#fbfaf6] px-4 py-3 text-2xl font-semibold outline-none transition focus:border-[#1d6a56] focus:ring-2 focus:ring-[#1d6a56]/15"
@@ -113,7 +113,7 @@ function App() {
                     value={quote.guestCount}
                   />
                   <input
-                    aria-label="Ajustar cantidad de invitados"
+                    aria-label="Adjust guest count"
                     className="mt-5 w-full accent-[#1d6a56]"
                     max="250"
                     min="10"
@@ -126,33 +126,34 @@ function App() {
                 <div className="rounded-lg border border-[#ded4c4] bg-white p-4 shadow-sm">
                   <div className="mb-4 flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-semibold text-[#6f5b32]">Cliente y fecha</p>
-                      <p className="text-sm text-[#66716a]">Datos para la propuesta.</p>
+                      <p className="text-sm font-semibold text-[#6f5b32]">Client and date</p>
+                      <p className="text-sm text-[#66716a]">Proposal details.</p>
                     </div>
                     <Gem aria-hidden="true" className="h-5 w-5 text-[#7b5d26]" />
                   </div>
 
-                  <div className="grid gap-3">
+                  <div className="grid gap-4 rounded-lg border border-[#eadfcd] bg-[#fbfaf6] p-3">
                     <label className="text-sm font-medium text-[#3d4943]" htmlFor="client-name">
-                      Nombre
+                      Name
                     </label>
                     <input
-                      className="rounded-lg border border-[#cfc3ae] bg-[#fbfaf6] px-3 py-2 outline-none transition focus:border-[#1d6a56] focus:ring-2 focus:ring-[#1d6a56]/15"
+                      className="w-full rounded-lg border border-[#cfc3ae] bg-white px-3 py-2 outline-none transition focus:border-[#1d6a56] focus:ring-2 focus:ring-[#1d6a56]/15"
                       id="client-name"
                       onChange={(event) => updateQuote({ clientName: event.target.value })}
-                      placeholder="Cliente potencial"
+                      placeholder="Prospective client"
                       type="text"
                       value={quote.clientName}
                     />
 
                     <label className="text-sm font-medium text-[#3d4943]" htmlFor="event-date">
-                      Fecha tentativa
+                      Tentative date
                     </label>
                     <input
-                      className="rounded-lg border border-[#cfc3ae] bg-[#fbfaf6] px-3 py-2 outline-none transition focus:border-[#1d6a56] focus:ring-2 focus:ring-[#1d6a56]/15"
+                      className="w-full rounded-lg border border-[#cfc3ae] bg-white px-3 py-2 outline-none transition focus:border-[#1d6a56] focus:ring-2 focus:ring-[#1d6a56]/15"
                       id="event-date"
                       onChange={(event) => updateQuote({ eventDate: event.target.value })}
-                      type="date"
+                      placeholder="MM/DD/YYYY"
+                      type="text"
                       value={quote.eventDate}
                     />
                   </div>
@@ -162,8 +163,8 @@ function App() {
               <div className="rounded-lg border border-[#ded4c4] bg-white p-4 shadow-sm">
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-semibold text-[#6f5b32]">3. Paquete base</p>
-                    <p className="text-sm text-[#66716a]">Compara alcance y precio por invitado.</p>
+                    <p className="text-sm font-semibold text-[#6f5b32]">3. Base package</p>
+                    <p className="text-sm text-[#66716a]">Compare scope and price per guest.</p>
                   </div>
                   <PackageCheck aria-hidden="true" className="h-5 w-5 text-[#7b5d26]" />
                 </div>
@@ -193,7 +194,7 @@ function App() {
                           <span className="text-right text-sm font-semibold text-[#1d6a56]">
                             {formatCurrency(packageOption.basePrice)}
                             <span className="block text-xs font-medium text-[#66716a]">
-                              + {formatCurrency(packageOption.pricePerGuest)} p/p
+                              + {formatCurrency(packageOption.pricePerGuest)} per guest
                             </span>
                           </span>
                         </span>
@@ -206,7 +207,7 @@ function App() {
 
             <aside className="rounded-lg border border-[#17231f] bg-[#17231f] p-4 text-white shadow-sm">
               <div
-                aria-label="Mesa de evento con iluminacion calida"
+                aria-label="Event table with warm lighting"
                 className="min-h-48 rounded-lg bg-cover bg-center"
                 style={{
                   backgroundImage:
@@ -215,17 +216,17 @@ function App() {
               />
 
               <div className="mt-5">
-                <p className="text-sm font-medium text-[#d8b764]">Resumen comercial</p>
+                <p className="text-sm font-medium text-[#d8b764]">Quote summary</p>
                 <h2 className="mt-2 text-3xl font-semibold">{formatCurrency(pricing.total)}</h2>
                 <p className="mt-2 text-sm leading-6 text-[#dce7e1]">
-                  {selectedPackage.name} para {pricing.eventType.name.toLowerCase()} con{' '}
-                  {quote.guestCount} invitados.
+                  {selectedPackage.name} for a {pricing.eventType.name.toLowerCase()} with{' '}
+                  {quote.guestCount} guests.
                 </p>
               </div>
 
               <dl className="mt-5 space-y-3 border-y border-white/15 py-5 text-sm">
-                <SummaryRow label="Paquete" value={formatCurrency(pricing.packageSubtotal)} />
-                <SummaryRow label="Ajuste evento" value={formatCurrency(pricing.eventAdjustment)} />
+                <SummaryRow label="Package" value={formatCurrency(pricing.packageSubtotal)} />
+                <SummaryRow label="Event adjustment" value={formatCurrency(pricing.eventAdjustment)} />
                 <SummaryRow label="Extras" value={formatCurrency(pricing.extrasSubtotal)} />
               </dl>
 
@@ -233,7 +234,7 @@ function App() {
                 className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#d8b764] px-4 py-3 text-sm font-semibold text-[#17231f] transition hover:bg-[#e6ca7f]"
                 type="button"
               >
-                Preparar propuesta
+                Prepare proposal
                 <ChevronRight aria-hidden="true" className="h-4 w-4" />
               </button>
             </aside>
@@ -249,7 +250,7 @@ function App() {
           <div>
             <p className="text-sm font-semibold text-[#6f5b32]">4. Extras</p>
             <p className="mt-1 text-sm leading-6 text-[#66716a]">
-              Selecciona servicios adicionales y revisa el impacto inmediato.
+              Select add-ons and review the impact immediately.
             </p>
           </div>
 
@@ -281,7 +282,7 @@ function App() {
                     <span className="shrink-0 text-right text-sm font-semibold text-[#1d6a56]">
                       {formatCurrency(extra.price)}
                       <span className="block text-xs font-medium text-[#66716a]">
-                        {extra.priceType === 'perGuest' ? 'por invitado' : 'fijo'}
+                        {extra.priceType === 'perGuest' ? 'per guest' : 'fixed'}
                       </span>
                     </span>
                   </span>
@@ -293,10 +294,10 @@ function App() {
           <div className="mt-auto rounded-lg bg-[#f5f1e8] p-4">
             <p className="flex items-center gap-2 text-sm font-semibold text-[#6f5b32]">
               <MessageCircle aria-hidden="true" className="h-4 w-4" />
-              Siguiente modulo
+              Next module
             </p>
             <p className="mt-2 text-sm leading-6 text-[#536058]">
-              La propuesta imprimible y el mensaje de WhatsApp se construyen sobre este estado.
+              The printable proposal and WhatsApp message will build on this quote state.
             </p>
           </div>
         </motion.aside>

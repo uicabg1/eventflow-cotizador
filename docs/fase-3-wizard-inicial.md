@@ -18,6 +18,7 @@ Se reemplazo la pantalla base por una experiencia usable de cotizacion con:
 - Selector de extras.
 - Resumen comercial con subtotal de paquete, ajuste por evento, extras y total.
 - Imagen local de evento en `public/event-setup.jpg`.
+- Copy visible de la app en ingles para presentacion de portafolio.
 
 ## Estado Agregado
 
@@ -68,6 +69,10 @@ Se reviso la app con Playwright en:
 - Mobile: 390 x 844.
 
 Tambien se verifico interaccion del extra `DJ`: el total cambio de `$75,925` a `$83,425`, confirmando que la UI consume el estado y pricing en vivo.
+
+## Correccion Posterior
+
+Se ajusto el bloque `Client and date` para que los campos internos queden contenidos visualmente dentro del recuadro. Tambien se tradujo a ingles la UI visible y el catalogo renderizado.
 
 ## Siguiente Fase
 

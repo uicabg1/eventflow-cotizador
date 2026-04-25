@@ -10,4 +10,19 @@ describe('EventFlow base data', () => {
     expect(packages).toHaveLength(3)
     expect(extras.length).toBeGreaterThanOrEqual(6)
   })
+
+  it('uses English-facing catalog copy', () => {
+    expect(eventTypes.map((eventType) => eventType.name)).toEqual([
+      'Wedding',
+      'Birthday',
+      'Corporate event',
+      'Private dinner',
+    ])
+    expect(packages.map((packageOption) => packageOption.name)).toEqual([
+      'Essential',
+      'Celebration',
+      'Premium',
+    ])
+    expect(extras.map((extra) => extra.name)).toContain('Ambient lighting')
+  })
 })

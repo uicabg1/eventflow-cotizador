@@ -17,7 +17,7 @@ describe('calculateQuotePricing', () => {
 
     const pricing = calculateQuotePricing(quote)
 
-    expect(pricing.eventType.name).toBe('Boda')
+    expect(pricing.eventType.name).toBe('Wedding')
     expect(pricing.package.name).toBe('Premium')
     expect(pricing.selectedExtras.map((extra) => extra.id)).toEqual(['floral-design', 'dessert-table'])
     expect(pricing.packageSubtotal).toBe(88_400)
