@@ -50,6 +50,7 @@ pnpm preview
 - `docs/fase-1-base.md`: what Phase 1 created and verified.
 - `docs/fase-2-logica-cotizacion.md`: pricing logic created with TDD.
 - `docs/fase-3-wizard-inicial.md`: first visual wizard with live pricing.
+- `docs/fase-4-propuesta-final.md`: planned proposal, WhatsApp and print module.
 - `eventflow-cotizador-interactivo.md`: full product spec and implementation direction.
 
 ## Development Notes

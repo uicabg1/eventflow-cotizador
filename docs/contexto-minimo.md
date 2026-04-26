@@ -40,6 +40,12 @@ Fase 3 completada:
 - Imagen local agregada en `public/event-setup.jpg`.
 - Registro de fase agregado en `docs/fase-3-wizard-inicial.md`.
 
+Fase 4 documentacion iniciada:
+
+- Registro inicial creado en `docs/fase-4-propuesta-final.md`.
+- Alcance planeado: propuesta final, texto de WhatsApp y accion de imprimir/guardar desde el navegador.
+- Estado: pendiente de luz verde antes de escribir codigo.
+
 ## Estado GitHub
 
 Repositorio remoto configurado:
@@ -74,6 +80,7 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 - `docs/fase-1-base.md`: registro de base tecnica.
 - `docs/fase-2-logica-cotizacion.md`: registro de logica de precios.
 - `docs/fase-3-wizard-inicial.md`: registro del wizard inicial.
+- `docs/fase-4-propuesta-final.md`: documentacion inicial de propuesta final, WhatsApp e impresion.
 - `docs/eventflow-cotizador-interactivo.md`: especificacion larga del producto.
 - `src/data/eventTypes.ts`: tipos de evento.
 - `src/data/packages.ts`: paquetes.
@@ -88,7 +95,7 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 
 ## Siguiente Paso
 
-Fase 4: crear propuesta final, texto para WhatsApp y accion de imprimir/guardar desde el navegador.
+Esperar luz verde para implementar fase 4: crear propuesta final, texto para WhatsApp y accion de imprimir/guardar desde el navegador.
 
 Orden recomendado:
 
@@ -97,6 +104,8 @@ Orden recomendado:
 3. Conectar boton de propuesta en la UI.
 4. Agregar accion de imprimir con `window.print()`.
 5. Verificar con `pnpm test`, `pnpm lint` y `pnpm build`.
+
+No crear `src/domain/proposal.ts` ni tocar `src/App.tsx` para fase 4 hasta recibir aprobacion explicita.
 
 ## Ultima Validacion
 
