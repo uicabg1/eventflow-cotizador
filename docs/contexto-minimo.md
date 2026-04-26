@@ -32,9 +32,11 @@ Fase 3 completada:
 
 - Estado del cotizador creado en `src/hooks/useQuoteState.ts`.
 - Pruebas de estado agregadas en `src/hooks/useQuoteState.test.ts`.
+- Prueba de render inicial agregada en `src/App.test.tsx`.
 - Primer wizard visual creado en `src/App.tsx`.
 - La UI consume `calculateQuotePricing` y muestra precio en vivo.
 - Copy visible de la app y catalogo renderizado en ingles.
+- Fecha tentativa capturada con selectores de mes, dia y ano para evitar texto libre ambiguo.
 - Imagen local agregada en `public/event-setup.jpg`.
 - Registro de fase agregado en `docs/fase-3-wizard-inicial.md`.
 
@@ -81,6 +83,7 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 - `src/domain/pricing.test.ts`: pruebas de logica de cotizacion.
 - `src/hooks/useQuoteState.ts`: estado del cotizador y pricing derivado.
 - `src/hooks/useQuoteState.test.ts`: pruebas de estado del cotizador.
+- `src/App.test.tsx`: prueba de render del wizard inicial.
 - `src/App.tsx`: wizard visual inicial.
 
 ## Siguiente Paso
@@ -105,7 +108,7 @@ pnpm build
 
 Resultado:
 
-- `pnpm test`: 3 archivos de prueba passed, 7 tests passed.
+- `pnpm test`: 4 archivos de prueba passed, 9 tests passed.
 - `pnpm lint`: sin errores reportados.
 - `pnpm build`: build generado correctamente en `dist/`.
 

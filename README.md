@@ -4,9 +4,9 @@ Static web app for an event business quote builder. EventFlow lets users configu
 
 ## Current Status
 
-Phase 1 is complete: the project has the base React/Vite setup, Tailwind CSS, Motion for React, lucide-react, Vitest and initial mock data.
+Phase 3 is complete: the app has quote pricing logic, tested quote state helpers, and a usable visual wizard with live pricing.
 
-Next phase: build the quote pricing logic in `src/domain/pricing.ts` using TDD.
+Next phase: generate the final proposal, WhatsApp copy, and print/save action from the browser.
 
 ## Stack
 
@@ -30,7 +30,7 @@ src/
   domain/         Types and pure business logic
   hooks/          React hooks for quote state and persistence
   styles/         Shared style helpers and future tokens
-  App.tsx         Temporary Phase 1 landing surface
+  App.tsx         Visual quote wizard with live pricing
   main.tsx        React entry point
 ```
 
@@ -48,6 +48,8 @@ pnpm preview
 
 - `docs/contexto-minimo.md`: shortest handoff context for future AI/dev sessions.
 - `docs/fase-1-base.md`: what Phase 1 created and verified.
+- `docs/fase-2-logica-cotizacion.md`: pricing logic created with TDD.
+- `docs/fase-3-wizard-inicial.md`: first visual wizard with live pricing.
 - `eventflow-cotizador-interactivo.md`: full product spec and implementation direction.
 
 ## Development Notes
@@ -67,4 +69,3 @@ pnpm test
 pnpm lint
 pnpm build
 ```
-

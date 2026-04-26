@@ -1,6 +1,7 @@
 # Fase 3: Wizard Inicial Con Precio En Vivo
 
 Fecha: 2026-04-25  
+Actualizacion: 2026-04-26  
 Estado: completada y verificada
 
 ## Objetivo
@@ -14,6 +15,7 @@ Se reemplazo la pantalla base por una experiencia usable de cotizacion con:
 - Selector de tipo de evento.
 - Control de cantidad de invitados.
 - Campos de cliente y fecha tentativa.
+- Fecha tentativa con selectores de mes, dia y ano.
 - Selector de paquete base.
 - Selector de extras.
 - Resumen comercial con subtotal de paquete, ajuste por evento, extras y total.
@@ -39,6 +41,12 @@ La UI consume `calculateQuotePricing` por medio del hook. Los calculos no se dup
 - Actualizaciones parciales sin mutar el estado original.
 - Alternar extras preservando el resto de la cotizacion.
 
+`src/App.test.tsx` valida:
+
+- Render de selectores de mes, dia y ano para fecha tentativa.
+- Opciones de meses en ingles.
+- Ausencia del campo de texto libre anterior para la fecha.
+
 ## Asset Visual
 
 La imagen `public/event-setup.jpg` viene de Unsplash:
@@ -57,7 +65,7 @@ pnpm build
 
 Resultado:
 
-- `pnpm test`: 3 archivos de prueba passed, 7 tests passed.
+- `pnpm test`: 4 archivos de prueba passed, 9 tests passed.
 - `pnpm lint`: sin errores reportados.
 - `pnpm build`: build generado correctamente en `dist/`.
 
@@ -73,6 +81,8 @@ Tambien se verifico interaccion del extra `DJ`: el total cambio de `$75,925` a `
 ## Correccion Posterior
 
 Se ajusto el bloque `Client and date` para que los campos internos queden contenidos visualmente dentro del recuadro. Tambien se tradujo a ingles la UI visible y el catalogo renderizado.
+
+En el cierre del 2026-04-26 se reemplazo el texto libre de fecha tentativa por selectores de mes, dia y ano. La decision mantiene el alcance de fase 3: captura inicial clara, sin validaciones complejas ni persistencia.
 
 ## Siguiente Fase
 

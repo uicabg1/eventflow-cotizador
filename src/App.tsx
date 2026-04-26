@@ -9,6 +9,7 @@ import {
   Users,
 } from 'lucide-react'
 import { motion } from 'motion/react'
+import { useState } from 'react'
 
 import { eventTypes } from './data/eventTypes'
 import { extras } from './data/extras'
@@ -21,10 +22,57 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0,
 })
 
+const monthOptions = [
+  { label: 'January', value: '01' },
+  { label: 'February', value: '02' },
+  { label: 'March', value: '03' },
+  { label: 'April', value: '04' },
+  { label: 'May', value: '05' },
+  { label: 'June', value: '06' },
+  { label: 'July', value: '07' },
+  { label: 'August', value: '08' },
+  { label: 'September', value: '09' },
+  { label: 'October', value: '10' },
+  { label: 'November', value: '11' },
+  { label: 'December', value: '12' },
+]
+
+const firstEventYear = new Date().getFullYear()
+const yearOptions = Array.from({ length: 11 }, (_, index) => String(firstEventYear + index))
+
+type TentativeDatePart = 'month' | 'day' | 'year'
+
+type TentativeDateParts = {
+  day: string
+  month: string
+  year: string
+}
+
+const emptyTentativeDateParts: TentativeDateParts = {
+  day: '',
+  month: '',
+  year: '',
+}
+
 function App() {
   const { pricing, quote, toggleExtra, updateQuote } = useQuoteState()
 
   const selectedPackage = pricing.package
+  const [tentativeDateParts, setTentativeDateParts] = useState<TentativeDateParts>(() =>
+    parseTentativeDate(quote.eventDate),
+  )
+  const selectedDateParts = quote.eventDate ? parseTentativeDate(quote.eventDate) : tentativeDateParts
+  const dayOptions = getDayOptions(selectedDateParts.month, selectedDateParts.year)
+
+  function handleTentativeDateChange(part: TentativeDatePart, value: string) {
+    const nextDateParts = normalizeTentativeDateParts({
+      ...selectedDateParts,
+      [part]: value,
+    })
+
+    setTentativeDateParts(nextDateParts)
+    updateQuote({ eventDate: formatTentativeDate(nextDateParts) })
+  }
 
   return (
     <main className="min-h-svh bg-[#f5f1e8] text-[#18231f]">
@@ -145,17 +193,61 @@ function App() {
                       value={quote.clientName}
                     />
 
-                    <label className="text-sm font-medium text-[#3d4943]" htmlFor="event-date">
-                      Tentative date
-                    </label>
-                    <input
-                      className="w-full rounded-lg border border-[#cfc3ae] bg-white px-3 py-2 outline-none transition focus:border-[#1d6a56] focus:ring-2 focus:ring-[#1d6a56]/15"
-                      id="event-date"
-                      onChange={(event) => updateQuote({ eventDate: event.target.value })}
-                      placeholder="MM/DD/YYYY"
-                      type="text"
-                      value={quote.eventDate}
-                    />
+                    <fieldset className="grid gap-2">
+                      <legend className="text-sm font-medium text-[#3d4943]">Tentative date</legend>
+                      <div className="grid grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] gap-2">
+                        <label className="grid min-w-0 gap-1 text-xs font-medium text-[#66716a]" htmlFor="event-month">
+                          Month
+                          <select
+                            className="h-11 w-full rounded-lg border border-[#cfc3ae] bg-white px-2 text-sm font-medium text-[#18231f] outline-none transition focus:border-[#1d6a56] focus:ring-2 focus:ring-[#1d6a56]/15"
+                            id="event-month"
+                            onChange={(event) => handleTentativeDateChange('month', event.target.value)}
+                            value={selectedDateParts.month}
+                          >
+                            <option value="">Month</option>
+                            {monthOptions.map((month) => (
+                              <option key={month.value} value={month.value}>
+                                {month.label}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+
+                        <label className="grid min-w-0 gap-1 text-xs font-medium text-[#66716a]" htmlFor="event-day">
+                          Day
+                          <select
+                            className="h-11 w-full rounded-lg border border-[#cfc3ae] bg-white px-2 text-sm font-medium text-[#18231f] outline-none transition focus:border-[#1d6a56] focus:ring-2 focus:ring-[#1d6a56]/15"
+                            id="event-day"
+                            onChange={(event) => handleTentativeDateChange('day', event.target.value)}
+                            value={selectedDateParts.day}
+                          >
+                            <option value="">Day</option>
+                            {dayOptions.map((day) => (
+                              <option key={day} value={day}>
+                                {Number(day)}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+
+                        <label className="grid min-w-0 gap-1 text-xs font-medium text-[#66716a]" htmlFor="event-year">
+                          Year
+                          <select
+                            className="h-11 w-full rounded-lg border border-[#cfc3ae] bg-white px-2 text-sm font-medium text-[#18231f] outline-none transition focus:border-[#1d6a56] focus:ring-2 focus:ring-[#1d6a56]/15"
+                            id="event-year"
+                            onChange={(event) => handleTentativeDateChange('year', event.target.value)}
+                            value={selectedDateParts.year}
+                          >
+                            <option value="">Year</option>
+                            {yearOptions.map((year) => (
+                              <option key={year} value={year}>
+                                {year}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                      </div>
+                    </fieldset>
                   </div>
                 </div>
               </div>
@@ -191,7 +283,7 @@ function App() {
                               {packageOption.description}
                             </span>
                           </span>
-                          <span className="text-right text-sm font-semibold text-[#1d6a56]">
+                          <span className="inline-flex shrink-0 flex-col items-start text-sm font-semibold text-[#1d6a56]">
                             {formatCurrency(packageOption.basePrice)}
                             <span className="block text-xs font-medium text-[#66716a]">
                               + {formatCurrency(packageOption.pricePerGuest)} per guest
@@ -317,6 +409,53 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
 
 function formatCurrency(value: number): string {
   return currencyFormatter.format(value)
+}
+
+function parseTentativeDate(date: string): TentativeDateParts {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date)
+
+  if (!match) {
+    return emptyTentativeDateParts
+  }
+
+  return {
+    day: match[3],
+    month: match[2],
+    year: match[1],
+  }
+}
+
+function formatTentativeDate(dateParts: TentativeDateParts): string {
+  if (!dateParts.day || !dateParts.month || !dateParts.year) {
+    return ''
+  }
+
+  return `${dateParts.year}-${dateParts.month}-${dateParts.day}`
+}
+
+function normalizeTentativeDateParts(dateParts: TentativeDateParts): TentativeDateParts {
+  if (!dateParts.day) {
+    return dateParts
+  }
+
+  const maximumDay = getDayOptions(dateParts.month, dateParts.year).length
+
+  if (Number(dateParts.day) <= maximumDay) {
+    return dateParts
+  }
+
+  return {
+    ...dateParts,
+    day: '',
+  }
+}
+
+function getDayOptions(month: string, year: string): string[] {
+  const selectedMonth = Number(month)
+  const selectedYear = Number(year) || firstEventYear
+  const dayCount = selectedMonth ? new Date(selectedYear, selectedMonth, 0).getDate() : 31
+
+  return Array.from({ length: dayCount }, (_, index) => String(index + 1).padStart(2, '0'))
 }
 
 export default App
