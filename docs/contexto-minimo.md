@@ -48,6 +48,13 @@ Fase 4 completada:
 - `src/App.test.tsx` valida controles de propuesta, WhatsApp e impresion.
 - Registro de fase actualizado en `docs/fase-4-propuesta-final.md`.
 
+Fase 5 documentacion iniciada:
+
+- Registro inicial creado en `docs/fase-5-cierre-brechas-mvp.md`.
+- Alcance planeado: cerrar brechas del MVP contra `docs/eventflow-cotizador-interactivo.md`.
+- Pendientes principales: localStorage, invitados 10-500, print CSS, nota de validez, comparador mas completo y revision responsive.
+- Estado: pendiente de luz verde antes de escribir codigo.
+
 ## Estado GitHub
 
 Repositorio remoto configurado:
@@ -83,6 +90,7 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 - `docs/fase-2-logica-cotizacion.md`: registro de logica de precios.
 - `docs/fase-3-wizard-inicial.md`: registro del wizard inicial.
 - `docs/fase-4-propuesta-final.md`: registro de propuesta final, WhatsApp e impresion.
+- `docs/fase-5-cierre-brechas-mvp.md`: documentacion inicial para cerrar brechas del MVP.
 - `docs/eventflow-cotizador-interactivo.md`: especificacion larga del producto.
 - `src/data/eventTypes.ts`: tipos de evento.
 - `src/data/packages.ts`: paquetes.
@@ -99,13 +107,18 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 
 ## Siguiente Paso
 
-Siguiente paso sugerido: revision visual en navegador y definir fase 5.
+Siguiente paso sugerido: esperar luz verde para implementar fase 5.
 
-Opciones razonables para fase 5:
+Orden recomendado:
 
-1. Pulido visual/responsive final con revision en navegador.
-2. Persistencia local de la cotizacion con localStorage.
-3. Preparar despliegue en Vercel y actualizar README con URL de demo.
+1. Validar y normalizar invitados al rango 10-500 con TDD.
+2. Agregar persistencia local con `localStorage`.
+3. Agregar nota de validez a la propuesta.
+4. Agregar estilos `@media print`.
+5. Completar informacion del comparador de paquetes.
+6. Revisar responsive en desktop y mobile.
+
+No crear `src/hooks/useLocalStorage.ts`, `src/domain/validation.ts` ni modificar fase 5 hasta recibir aprobacion explicita.
 
 ## Ultima Validacion
 
