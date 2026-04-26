@@ -2,9 +2,13 @@ import {
   CalendarDays,
   Check,
   ChevronRight,
+  Copy,
+  FileText,
   Gem,
   MessageCircle,
   PackageCheck,
+  Printer,
+  Send,
   Sparkles,
   Users,
 } from 'lucide-react'
@@ -14,6 +18,7 @@ import { useState } from 'react'
 import { eventTypes } from './data/eventTypes'
 import { extras } from './data/extras'
 import { packages } from './data/packages'
+import { createProposalSummary, createWhatsAppMessage } from './domain/proposal'
 import { useQuoteState } from './hooks/useQuoteState'
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
@@ -63,6 +68,9 @@ function App() {
   )
   const selectedDateParts = quote.eventDate ? parseTentativeDate(quote.eventDate) : tentativeDateParts
   const dayOptions = getDayOptions(selectedDateParts.month, selectedDateParts.year)
+  const proposalSummary = createProposalSummary(quote, pricing)
+  const whatsAppMessage = createWhatsAppMessage(quote, pricing)
+  const whatsAppHref = `https://wa.me/?text=${encodeURIComponent(whatsAppMessage)}`
 
   function handleTentativeDateChange(part: TentativeDatePart, value: string) {
     const nextDateParts = normalizeTentativeDateParts({
@@ -72,6 +80,14 @@ function App() {
 
     setTentativeDateParts(nextDateParts)
     updateQuote({ eventDate: formatTentativeDate(nextDateParts) })
+  }
+
+  function handleCopyWhatsAppMessage() {
+    void navigator.clipboard?.writeText(whatsAppMessage)
+  }
+
+  function handlePrintProposal() {
+    window.print()
   }
 
   return (
@@ -322,15 +338,123 @@ function App() {
                 <SummaryRow label="Extras" value={formatCurrency(pricing.extrasSubtotal)} />
               </dl>
 
-              <button
+              <a
                 className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#d8b764] px-4 py-3 text-sm font-semibold text-[#17231f] transition hover:bg-[#e6ca7f]"
-                type="button"
+                href="#proposal"
               >
                 Prepare proposal
                 <ChevronRight aria-hidden="true" className="h-4 w-4" />
-              </button>
+              </a>
             </aside>
           </div>
+
+          <section className="scroll-mt-4 border-t border-[#ddd2bd] pt-5" id="proposal">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p className="flex items-center gap-2 text-sm font-semibold text-[#6f5b32]">
+                  <FileText aria-hidden="true" className="h-4 w-4" />
+                  Printable proposal
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold leading-tight text-[#18231f] md:text-3xl">
+                  {proposalSummary.title}
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-[#536058]">{proposalSummary.subtitle}</p>
+              </div>
+
+              <div className="flex flex-wrap gap-2 print:hidden">
+                <button
+                  className="inline-flex items-center gap-2 rounded-lg border border-[#cfc3ae] bg-white px-3 py-2 text-sm font-semibold text-[#18231f] transition hover:border-[#1d6a56]"
+                  onClick={handleCopyWhatsAppMessage}
+                  type="button"
+                >
+                  <Copy aria-hidden="true" className="h-4 w-4" />
+                  Copy WhatsApp text
+                </button>
+                <a
+                  className="inline-flex items-center gap-2 rounded-lg border border-[#1d6a56] bg-[#e8f2ed] px-3 py-2 text-sm font-semibold text-[#123c32] transition hover:bg-[#dcece5]"
+                  href={whatsAppHref}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <Send aria-hidden="true" className="h-4 w-4" />
+                  Open WhatsApp
+                </a>
+                <button
+                  className="inline-flex items-center gap-2 rounded-lg bg-[#17231f] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#24362f]"
+                  onClick={handlePrintProposal}
+                  type="button"
+                >
+                  <Printer aria-hidden="true" className="h-4 w-4" />
+                  Print / save PDF
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
+              <div className="space-y-5">
+                <dl className="grid gap-3 sm:grid-cols-2">
+                  {proposalSummary.details.map((detail) => (
+                    <div className="border-b border-[#e4d9c8] pb-3" key={detail.label}>
+                      <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-[#7b5d26]">
+                        {detail.label}
+                      </dt>
+                      <dd className="mt-1 text-sm font-semibold text-[#18231f]">{detail.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <div>
+                  <p className="text-sm font-semibold text-[#6f5b32]">Selected package</p>
+                  <h3 className="mt-2 text-xl font-semibold text-[#18231f]">
+                    {proposalSummary.packageName}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[#536058]">
+                    {proposalSummary.packageDescription}
+                  </p>
+                  <ul className="mt-3 grid gap-2 text-sm text-[#3d4943] sm:grid-cols-2">
+                    {proposalSummary.packageIncluded.map((includedItem) => (
+                      <li className="flex items-start gap-2" key={includedItem}>
+                        <Check aria-hidden="true" className="mt-0.5 h-4 w-4 text-[#1d6a56]" />
+                        <span>{includedItem}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <p className="text-sm font-semibold text-[#6f5b32]">Selected extras</p>
+                  <ul className="mt-3 grid gap-2 text-sm text-[#3d4943]">
+                    {proposalSummary.extraLines.map((extraLine) => (
+                      <li className="flex items-start gap-2" key={extraLine}>
+                        <Sparkles aria-hidden="true" className="mt-0.5 h-4 w-4 text-[#7b5d26]" />
+                        <span>{extraLine}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <aside className="rounded-lg border border-[#17231f] bg-[#17231f] p-4 text-white">
+                <p className="text-sm font-medium text-[#d8b764]">Client-ready message</p>
+                <pre className="mt-3 whitespace-pre-wrap rounded-lg bg-white/8 p-3 text-sm leading-6 text-[#edf5f1]">
+                  {whatsAppMessage}
+                </pre>
+
+                <dl className="mt-5 space-y-3 border-y border-white/15 py-5 text-sm">
+                  {proposalSummary.pricingLines.map((line) => (
+                    <SummaryRow key={line.label} label={line.label} value={line.value} />
+                  ))}
+                </dl>
+
+                <div className="mt-4 flex items-end justify-between gap-4">
+                  <span className="text-sm text-[#b9c8c0]">Estimated total</span>
+                  <strong className="text-2xl font-semibold text-white">
+                    {proposalSummary.totalLabel}
+                  </strong>
+                </div>
+              </aside>
+            </div>
+          </section>
         </motion.div>
 
         <motion.aside
@@ -386,10 +510,10 @@ function App() {
           <div className="mt-auto rounded-lg bg-[#f5f1e8] p-4">
             <p className="flex items-center gap-2 text-sm font-semibold text-[#6f5b32]">
               <MessageCircle aria-hidden="true" className="h-4 w-4" />
-              Next module
+              Proposal module
             </p>
             <p className="mt-2 text-sm leading-6 text-[#536058]">
-              The printable proposal and WhatsApp message will build on this quote state.
+              The printable proposal, WhatsApp message and print action now build on this quote state.
             </p>
           </div>
         </motion.aside>

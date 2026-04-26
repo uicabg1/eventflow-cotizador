@@ -4,9 +4,9 @@ Static web app for an event business quote builder. EventFlow lets users configu
 
 ## Current Status
 
-Phase 3 is complete: the app has quote pricing logic, tested quote state helpers, and a usable visual wizard with live pricing.
+Phase 4 is complete: the app has quote pricing logic, tested quote state helpers, a usable visual wizard with live pricing, and a client-ready proposal module.
 
-Next phase: generate the final proposal, WhatsApp copy, and print/save action from the browser.
+Next phase: visual review, persistence or deployment polish.
 
 ## Stack
 
@@ -50,7 +50,7 @@ pnpm preview
 - `docs/fase-1-base.md`: what Phase 1 created and verified.
 - `docs/fase-2-logica-cotizacion.md`: pricing logic created with TDD.
 - `docs/fase-3-wizard-inicial.md`: first visual wizard with live pricing.
-- `docs/fase-4-propuesta-final.md`: planned proposal, WhatsApp and print module.
+- `docs/fase-4-propuesta-final.md`: completed proposal, WhatsApp and print module.
 - `eventflow-cotizador-interactivo.md`: full product spec and implementation direction.
 
 ## Development Notes

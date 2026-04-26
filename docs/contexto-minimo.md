@@ -40,11 +40,13 @@ Fase 3 completada:
 - Imagen local agregada en `public/event-setup.jpg`.
 - Registro de fase agregado en `docs/fase-3-wizard-inicial.md`.
 
-Fase 4 documentacion iniciada:
+Fase 4 completada:
 
-- Registro inicial creado en `docs/fase-4-propuesta-final.md`.
-- Alcance planeado: propuesta final, texto de WhatsApp y accion de imprimir/guardar desde el navegador.
-- Estado: pendiente de luz verde antes de escribir codigo.
+- Logica pura de propuesta creada en `src/domain/proposal.ts`.
+- Pruebas TDD agregadas en `src/domain/proposal.test.ts`.
+- `src/App.tsx` ahora renderiza propuesta imprimible, mensaje de WhatsApp y accion de imprimir/guardar PDF.
+- `src/App.test.tsx` valida controles de propuesta, WhatsApp e impresion.
+- Registro de fase actualizado en `docs/fase-4-propuesta-final.md`.
 
 ## Estado GitHub
 
@@ -68,7 +70,7 @@ Resultado:
 b2cdcd1 main -> main
 ```
 
-Recomendacion: mantenerlo privado mientras se construyen propuesta final, WhatsApp e impresion. Hacerlo publico cuando tenga demo visual presentable y flujo completo.
+Recomendacion: mantenerlo privado hasta hacer revision visual final y tener demo desplegada. Hacerlo publico cuando exista URL de Vercel presentable.
 
 ## Stack
 
@@ -80,7 +82,7 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 - `docs/fase-1-base.md`: registro de base tecnica.
 - `docs/fase-2-logica-cotizacion.md`: registro de logica de precios.
 - `docs/fase-3-wizard-inicial.md`: registro del wizard inicial.
-- `docs/fase-4-propuesta-final.md`: documentacion inicial de propuesta final, WhatsApp e impresion.
+- `docs/fase-4-propuesta-final.md`: registro de propuesta final, WhatsApp e impresion.
 - `docs/eventflow-cotizador-interactivo.md`: especificacion larga del producto.
 - `src/data/eventTypes.ts`: tipos de evento.
 - `src/data/packages.ts`: paquetes.
@@ -88,24 +90,22 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 - `src/domain/types.ts`: tipos compartidos.
 - `src/domain/pricing.ts`: logica pura de cotizacion.
 - `src/domain/pricing.test.ts`: pruebas de logica de cotizacion.
+- `src/domain/proposal.ts`: logica pura de propuesta y mensaje de WhatsApp.
+- `src/domain/proposal.test.ts`: pruebas de generacion de propuesta.
 - `src/hooks/useQuoteState.ts`: estado del cotizador y pricing derivado.
 - `src/hooks/useQuoteState.test.ts`: pruebas de estado del cotizador.
-- `src/App.test.tsx`: prueba de render del wizard inicial.
-- `src/App.tsx`: wizard visual inicial.
+- `src/App.test.tsx`: pruebas de render del wizard y modulo de propuesta.
+- `src/App.tsx`: wizard visual con propuesta final integrada.
 
 ## Siguiente Paso
 
-Esperar luz verde para implementar fase 4: crear propuesta final, texto para WhatsApp y accion de imprimir/guardar desde el navegador.
+Siguiente paso sugerido: revision visual en navegador y definir fase 5.
 
-Orden recomendado:
+Opciones razonables para fase 5:
 
-1. Crear `src/domain/proposal.ts` con texto de propuesta y mensaje de WhatsApp.
-2. Probar la generacion de propuesta con Vitest.
-3. Conectar boton de propuesta en la UI.
-4. Agregar accion de imprimir con `window.print()`.
-5. Verificar con `pnpm test`, `pnpm lint` y `pnpm build`.
-
-No crear `src/domain/proposal.ts` ni tocar `src/App.tsx` para fase 4 hasta recibir aprobacion explicita.
+1. Pulido visual/responsive final con revision en navegador.
+2. Persistencia local de la cotizacion con localStorage.
+3. Preparar despliegue en Vercel y actualizar README con URL de demo.
 
 ## Ultima Validacion
 
@@ -117,13 +117,14 @@ pnpm build
 
 Resultado:
 
-- `pnpm test`: 4 archivos de prueba passed, 9 tests passed.
+- `pnpm test`: 5 archivos de prueba passed, 13 tests passed.
 - `pnpm lint`: sin errores reportados.
 - `pnpm build`: build generado correctamente en `dist/`.
 
 ## Reglas De Trabajo
 
 - La UI del wizard debe consumir `src/domain/pricing.ts`, no recrear calculos.
+- La UI de propuesta debe consumir `src/domain/proposal.ts`, no armar copy comercial dentro de React.
 - No agregar backend, login, pagos ni panel admin.
 - No meter calculos dentro de componentes React.
 - Mantener funciones puras en `src/domain`.

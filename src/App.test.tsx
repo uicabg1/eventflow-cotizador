@@ -17,3 +17,17 @@ describe('App client and date form', () => {
     expect(html).not.toContain('type="date"')
   })
 })
+
+describe('App proposal module', () => {
+  it('renders proposal, WhatsApp and print controls from the live quote', () => {
+    const html = renderToStaticMarkup(<App />)
+
+    expect(html).toContain('id="proposal"')
+    expect(html).toContain('Printable proposal')
+    expect(html).toContain('Event proposal')
+    expect(html).toContain('Copy WhatsApp text')
+    expect(html).toContain('Open WhatsApp')
+    expect(html).toContain('Print / save PDF')
+    expect(html).toContain('href="https://wa.me/?text=')
+  })
+})
