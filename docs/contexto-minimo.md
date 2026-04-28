@@ -73,7 +73,7 @@ Fase 6 completada:
 - README actualizado el 2026-04-28 con la URL de demo.
 - Caso de estudio creado el 2026-04-28 en `docs/caso-estudio-eventflow.md`.
 - Cambios finales de Fase 6 publicados en GitHub con commit `7d21c8b docs: publish phase 6 portfolio assets`.
-- Estado final documentado con commit `150f721 docs: mark phase 6 published`.
+- Estado final documentado en `main`.
 - Repositorio cambiado a publico el 2026-04-28.
 - Estado: fase 6 completada.
 
@@ -96,7 +96,7 @@ git push origin main
 Resultado:
 
 ```text
-150f721 main -> main
+main -> main
 ```
 
 Visibilidad actual:
