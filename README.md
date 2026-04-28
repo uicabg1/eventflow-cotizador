@@ -4,9 +4,9 @@ Static web app for an event business quote builder. EventFlow lets users configu
 
 ## Current Status
 
-Phase 4 is complete: the app has quote pricing logic, tested quote state helpers, a usable visual wizard with live pricing, and a client-ready proposal module.
+Phase 5 is complete: the app has quote pricing logic, tested quote state helpers, a live pricing wizard, a client-ready proposal module, local persistence and print polish.
 
-Next phase: close MVP gaps with local persistence, print polish and responsive review.
+Phase 6 is planned: portfolio polish, deployment and demo assets.
 
 ## Stack
 
@@ -18,7 +18,7 @@ Next phase: close MVP gaps with local persistence, print polish and responsive r
 - lucide-react
 - date-fns
 - Vitest
-- localStorage planned for quote persistence
+- localStorage for quote persistence
 - Vercel planned for deployment
 
 ## Project Structure
@@ -51,7 +51,8 @@ pnpm preview
 - `docs/fase-2-logica-cotizacion.md`: pricing logic created with TDD.
 - `docs/fase-3-wizard-inicial.md`: first visual wizard with live pricing.
 - `docs/fase-4-propuesta-final.md`: completed proposal, WhatsApp and print module.
-- `docs/fase-5-cierre-brechas-mvp.md`: planned MVP gap closure.
+- `docs/fase-5-cierre-brechas-mvp.md`: completed MVP gap closure.
+- `docs/fase-6-portafolio-despliegue.md`: planned portfolio, deployment and demo handoff.
 - `eventflow-cotizador-interactivo.md`: full product spec and implementation direction.
 
 ## Development Notes

@@ -48,12 +48,24 @@ Fase 4 completada:
 - `src/App.test.tsx` valida controles de propuesta, WhatsApp e impresion.
 - Registro de fase actualizado en `docs/fase-4-propuesta-final.md`.
 
-Fase 5 documentacion iniciada:
+Fase 5 completada:
 
-- Registro inicial creado en `docs/fase-5-cierre-brechas-mvp.md`.
-- Alcance planeado: cerrar brechas del MVP contra `docs/eventflow-cotizador-interactivo.md`.
-- Pendientes principales: localStorage, invitados 10-500, print CSS, nota de validez, comparador mas completo y revision responsive.
-- Estado: pendiente de luz verde antes de escribir codigo.
+- Validacion de invitados creada en `src/domain/validation.ts`.
+- Persistencia local creada en `src/hooks/useLocalStorage.ts`.
+- `useQuoteState` ahora recupera y guarda la cotizacion en `localStorage`.
+- `src/domain/pricing.ts` rechaza invitados fuera del rango 10-500.
+- `src/domain/proposal.ts` agrega nota de validez.
+- `src/App.tsx` muestra incluidos/recomendacion en paquetes y usa estilos de impresion.
+- `src/index.css` agrega `@media print` para imprimir solo la propuesta.
+- Registro de fase actualizado en `docs/fase-5-cierre-brechas-mvp.md`.
+- La Fase 5 cierra el MVP: cotizacion, comparador de paquetes, resumen en vivo, propuesta, WhatsApp, impresion limpia, persistencia local, validacion de invitados y responsive basico.
+- La fase documental de resumen/comparador ya no se mantiene como fase separada; ese alcance queda absorbido por el cierre de Fase 5.
+
+Fase 6 documentacion iniciada:
+
+- Registro inicial creado en `docs/fase-6-portafolio-despliegue.md`.
+- Alcance planeado: pulido de portafolio, despliegue en Vercel, capturas finales, README con demo y caso de estudio.
+- Estado: pendiente de implementacion; no ampliar producto ni agregar backend.
 
 ## Estado GitHub
 
@@ -90,7 +102,8 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 - `docs/fase-2-logica-cotizacion.md`: registro de logica de precios.
 - `docs/fase-3-wizard-inicial.md`: registro del wizard inicial.
 - `docs/fase-4-propuesta-final.md`: registro de propuesta final, WhatsApp e impresion.
-- `docs/fase-5-cierre-brechas-mvp.md`: documentacion inicial para cerrar brechas del MVP.
+- `docs/fase-5-cierre-brechas-mvp.md`: cierre verificado de brechas del MVP.
+- `docs/fase-6-portafolio-despliegue.md`: plan de portafolio, despliegue y demo.
 - `docs/eventflow-cotizador-interactivo.md`: especificacion larga del producto.
 - `src/data/eventTypes.ts`: tipos de evento.
 - `src/data/packages.ts`: paquetes.
@@ -100,6 +113,10 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 - `src/domain/pricing.test.ts`: pruebas de logica de cotizacion.
 - `src/domain/proposal.ts`: logica pura de propuesta y mensaje de WhatsApp.
 - `src/domain/proposal.test.ts`: pruebas de generacion de propuesta.
+- `src/domain/validation.ts`: validacion y normalizacion de invitados.
+- `src/domain/validation.test.ts`: pruebas de rango de invitados 10-500.
+- `src/hooks/useLocalStorage.ts`: helpers de persistencia local de cotizacion.
+- `src/hooks/useLocalStorage.test.ts`: pruebas de lectura/escritura de cotizacion persistida.
 - `src/hooks/useQuoteState.ts`: estado del cotizador y pricing derivado.
 - `src/hooks/useQuoteState.test.ts`: pruebas de estado del cotizador.
 - `src/App.test.tsx`: pruebas de render del wizard y modulo de propuesta.
@@ -107,18 +124,17 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 
 ## Siguiente Paso
 
-Siguiente paso sugerido: esperar luz verde para implementar fase 5.
+Siguiente paso sugerido: implementar fase 6 de pulido de portafolio y despliegue.
 
 Orden recomendado:
 
-1. Validar y normalizar invitados al rango 10-500 con TDD.
-2. Agregar persistencia local con `localStorage`.
-3. Agregar nota de validez a la propuesta.
-4. Agregar estilos `@media print`.
-5. Completar informacion del comparador de paquetes.
-6. Revisar responsive en desktop y mobile.
-
-No crear `src/hooks/useLocalStorage.ts`, `src/domain/validation.ts` ni modificar fase 5 hasta recibir aprobacion explicita.
+1. Ejecutar `pnpm test`, `pnpm lint` y `pnpm build`.
+2. Revisar visualmente desktop y mobile.
+3. Preparar capturas finales del flujo.
+4. Desplegar en Vercel.
+5. Actualizar README con URL de demo cuando exista.
+6. Redactar caso de estudio para portafolio.
+7. Revisar si el repositorio debe pasar a publico despues de tener demo presentable.
 
 ## Ultima Validacion
 
@@ -130,7 +146,7 @@ pnpm build
 
 Resultado:
 
-- `pnpm test`: 5 archivos de prueba passed, 13 tests passed.
+- `pnpm test`: 7 archivos de prueba passed, 21 tests passed.
 - `pnpm lint`: sin errores reportados.
 - `pnpm build`: build generado correctamente en `dist/`.
 
@@ -138,6 +154,9 @@ Resultado:
 
 - La UI del wizard debe consumir `src/domain/pricing.ts`, no recrear calculos.
 - La UI de propuesta debe consumir `src/domain/proposal.ts`, no armar copy comercial dentro de React.
+- La persistencia local debe pasar por `src/hooks/useLocalStorage.ts`.
+- Los invitados soportados son 10-500.
+- La fase 6 debe enfocarse en presentacion, despliegue y evidencia de portafolio; no ampliar el producto.
 - No agregar backend, login, pagos ni panel admin.
 - No meter calculos dentro de componentes React.
 - Mantener funciones puras en `src/domain`.

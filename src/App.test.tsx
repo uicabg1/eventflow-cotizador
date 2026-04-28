@@ -10,6 +10,8 @@ describe('App client and date form', () => {
     expect(html).toContain('id="event-month"')
     expect(html).toContain('id="event-day"')
     expect(html).toContain('id="event-year"')
+    expect(html).toContain('min="10"')
+    expect(html).toContain('max="500"')
     expect(html).toContain('<option value="01">January</option>')
     expect(html).toContain('<option value="12">December</option>')
     expect(html).toContain('grid-cols-[repeat(auto-fit,minmax(8rem,1fr))]')
@@ -29,5 +31,17 @@ describe('App proposal module', () => {
     expect(html).toContain('Open WhatsApp')
     expect(html).toContain('Print / save PDF')
     expect(html).toContain('href="https://wa.me/?text=')
+    expect(html).toContain('Estimate subject to availability and final details.')
+    expect(html).toContain('printable-proposal')
+    expect(html).toContain('proposal-actions print-hidden')
+  })
+
+  it('renders package included items and recommended use for comparison', () => {
+    const html = renderToStaticMarkup(<App />)
+
+    expect(html).toContain('Included')
+    expect(html).toContain('Recommended for')
+    expect(html).toContain('Core furniture')
+    expect(html).toContain('Birthdays, family gatherings and simple dinners.')
   })
 })

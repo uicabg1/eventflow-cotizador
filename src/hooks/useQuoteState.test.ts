@@ -26,6 +26,14 @@ describe('quote state helpers', () => {
     expect(quote.selectedPackageId).toBe('celebration')
   })
 
+  it('normalizes guest count updates into the supported range', () => {
+    const quote = createInitialQuoteState()
+
+    expect(updateQuoteState(quote, { guestCount: 1 }).guestCount).toBe(10)
+    expect(updateQuoteState(quote, { guestCount: 501 }).guestCount).toBe(500)
+    expect(updateQuoteState(quote, { guestCount: 120.6 }).guestCount).toBe(121)
+  })
+
   it('toggles extras on and off while preserving the rest of the quote', () => {
     const quote = createInitialQuoteState()
     const withDj = toggleExtraId(quote, 'dj')

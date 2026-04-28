@@ -37,6 +37,7 @@ describe('proposal generation', () => {
       { label: 'Extras', value: 'MX$14,100' },
     ])
     expect(summary.totalLabel).toBe('MX$124,600')
+    expect(summary.validityNote).toBe('Estimate subject to availability and final details.')
   })
 
   it('uses generic copy when client, date and extras are missing', () => {

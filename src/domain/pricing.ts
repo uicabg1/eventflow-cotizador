@@ -2,6 +2,7 @@ import { eventTypes } from '../data/eventTypes'
 import { extras } from '../data/extras'
 import { packages } from '../data/packages'
 import type { EventType, ExtraOption, PackageOption, QuoteState } from './types'
+import { assertGuestCountInRange } from './validation'
 
 export type PricingCatalog = {
   eventTypes: EventType[]
@@ -41,7 +42,7 @@ export function calculateQuotePricing(
   quote: QuoteState,
   catalog: PricingCatalog = defaultPricingCatalog,
 ): QuotePricing {
-  assertPositiveGuestCount(quote.guestCount)
+  assertGuestCountInRange(quote.guestCount)
 
   const eventType = findRequired(catalog.eventTypes, quote.eventTypeId, 'event type')
   const quotePackage = findRequired(catalog.packages, quote.selectedPackageId, 'package')
@@ -70,7 +71,7 @@ export function calculateQuotePricing(
 }
 
 export function calculateExtraPrice(extra: ExtraOption, guestCount: number): number {
-  assertPositiveGuestCount(guestCount)
+  assertGuestCountInRange(guestCount)
 
   if (extra.priceType === 'perGuest') {
     return roundCurrency(extra.price * guestCount)
@@ -98,12 +99,6 @@ function findRequired<T extends { id: string }>(items: T[], id: string, label: s
   }
 
   return item
-}
-
-function assertPositiveGuestCount(guestCount: number): void {
-  if (!Number.isInteger(guestCount) || guestCount < 1) {
-    throw new Error('Guest count must be a positive integer.')
-  }
 }
 
 function roundCurrency(value: number): number {

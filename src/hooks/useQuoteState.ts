@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { eventTypes } from '../data/eventTypes'
 import { extras } from '../data/extras'
@@ -6,6 +6,8 @@ import { packages } from '../data/packages'
 import { calculateQuotePricing } from '../domain/pricing'
 import type { QuotePricing } from '../domain/pricing'
 import type { QuoteState } from '../domain/types'
+import { normalizeGuestCount } from '../domain/validation'
+import { getBrowserStorage, readStoredQuote, writeStoredQuote } from './useLocalStorage'
 
 export type QuoteStatePatch = Partial<QuoteState>
 
@@ -22,9 +24,17 @@ export function createInitialQuoteState(): QuoteState {
 }
 
 export function updateQuoteState(quote: QuoteState, patch: QuoteStatePatch): QuoteState {
+  const normalizedPatch =
+    typeof patch.guestCount === 'number'
+      ? {
+          ...patch,
+          guestCount: normalizeGuestCount(patch.guestCount),
+        }
+      : patch
+
   return {
     ...quote,
-    ...patch,
+    ...normalizedPatch,
   }
 }
 
@@ -37,9 +47,16 @@ export function toggleExtraId(quote: QuoteState, extraId: string): QuoteState {
   return updateQuoteState(quote, { selectedExtraIds })
 }
 
-export function useQuoteState(initialQuote: QuoteState = createInitialQuoteState()) {
-  const [quote, setQuote] = useState<QuoteState>(initialQuote)
+export function useQuoteState(initialQuote?: QuoteState) {
+  const storage = useMemo(() => getBrowserStorage(), [])
+  const [quote, setQuote] = useState<QuoteState>(
+    () => initialQuote ?? readStoredQuote(storage) ?? createInitialQuoteState(),
+  )
   const pricing = useMemo<QuotePricing>(() => calculateQuotePricing(quote), [quote])
+
+  useEffect(() => {
+    writeStoredQuote(quote, storage)
+  }, [quote, storage])
 
   return {
     quote,

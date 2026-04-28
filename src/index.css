@@ -28,3 +28,39 @@ select,
 textarea {
   font: inherit;
 }
+
+@media print {
+  body {
+    background: #ffffff;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  .app-shell {
+    min-height: auto !important;
+    background: #ffffff !important;
+    color: #18231f !important;
+  }
+
+  .quote-workspace {
+    display: block !important;
+    min-height: auto !important;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .printable-proposal {
+    border-top: 0 !important;
+    padding-top: 0 !important;
+    break-inside: avoid;
+  }
+
+  .printable-proposal aside {
+    background: #17231f !important;
+    color: #ffffff !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

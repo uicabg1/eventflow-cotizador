@@ -16,6 +16,7 @@ export type ProposalSummary = {
   extraLines: string[]
   pricingLines: ProposalDetail[]
   totalLabel: string
+  validityNote: string
 }
 
 const monthNames = [
@@ -67,6 +68,7 @@ export function createProposalSummary(quote: QuoteState, pricing: QuotePricing):
       { label: 'Extras', value: formatCurrency(pricing.extrasSubtotal) },
     ],
     totalLabel: formatCurrency(pricing.total),
+    validityNote: 'Estimate subject to availability and final details.',
   }
 }
 

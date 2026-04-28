@@ -45,7 +45,7 @@ describe('calculateQuotePricing', () => {
     expect(pricing.total).toBe(16_500)
   })
 
-  it('rejects quotes without a positive guest count', () => {
+  it('rejects quotes outside the supported guest count range', () => {
     const quote: QuoteState = {
       eventTypeId: 'birthday',
       guestCount: 0,
@@ -56,6 +56,8 @@ describe('calculateQuotePricing', () => {
       notes: '',
     }
 
-    expect(() => calculateQuotePricing(quote)).toThrow('Guest count must be a positive integer.')
+    expect(() => calculateQuotePricing(quote)).toThrow(
+      'Guest count must be an integer between 10 and 500.',
+    )
   })
 })

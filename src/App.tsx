@@ -5,7 +5,6 @@ import {
   Copy,
   FileText,
   Gem,
-  MessageCircle,
   PackageCheck,
   Printer,
   Send,
@@ -19,6 +18,7 @@ import { eventTypes } from './data/eventTypes'
 import { extras } from './data/extras'
 import { packages } from './data/packages'
 import { createProposalSummary, createWhatsAppMessage } from './domain/proposal'
+import { maximumGuestCount, minimumGuestCount, normalizeGuestCount } from './domain/validation'
 import { useQuoteState } from './hooks/useQuoteState'
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
@@ -91,15 +91,15 @@ function App() {
   }
 
   return (
-    <main className="min-h-svh bg-[#f5f1e8] text-[#18231f]">
-      <section className="mx-auto grid min-h-svh w-full max-w-7xl gap-6 px-4 py-4 md:grid-cols-[minmax(0,1fr)_390px] md:px-6 lg:px-8">
+    <main className="app-shell min-h-svh bg-[#f5f1e8] text-[#18231f]">
+      <section className="quote-workspace mx-auto grid min-h-svh w-full max-w-7xl gap-6 px-4 py-4 md:grid-cols-[minmax(0,1fr)_390px] md:px-6 lg:px-8">
         <motion.div
           className="flex min-h-[calc(100svh-2rem)] flex-col gap-5"
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: 'easeOut' }}
         >
-          <header className="flex flex-wrap items-center justify-between gap-4 border-b border-[#ddd2bd] pb-4">
+          <header className="print-hidden flex flex-wrap items-center justify-between gap-4 border-b border-[#ddd2bd] pb-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#7b5d26]">
                 EventFlow
@@ -114,7 +114,7 @@ function App() {
             </div>
           </header>
 
-          <div className="grid flex-1 gap-5 lg:grid-cols-[minmax(0,1fr)_310px]">
+          <div className="quote-builder print-hidden grid gap-5 lg:grid-cols-[minmax(0,1fr)_310px] lg:items-start">
             <section className="space-y-5">
               <div className="rounded-lg border border-[#ded4c4] bg-white p-4 shadow-sm">
                 <div className="mb-4 flex items-center justify-between gap-3">
@@ -169,9 +169,10 @@ function App() {
                   <input
                     className="mt-3 w-full rounded-lg border border-[#cfc3ae] bg-[#fbfaf6] px-4 py-3 text-2xl font-semibold outline-none transition focus:border-[#1d6a56] focus:ring-2 focus:ring-[#1d6a56]/15"
                     id="guest-count"
-                    min="1"
+                    max={maximumGuestCount}
+                    min={minimumGuestCount}
                     onChange={(event) =>
-                      updateQuote({ guestCount: Math.max(1, Number(event.target.value)) })
+                      updateQuote({ guestCount: normalizeGuestCount(Number(event.target.value)) })
                     }
                     type="number"
                     value={quote.guestCount}
@@ -179,9 +180,11 @@ function App() {
                   <input
                     aria-label="Adjust guest count"
                     className="mt-5 w-full accent-[#1d6a56]"
-                    max="250"
-                    min="10"
-                    onChange={(event) => updateQuote({ guestCount: Number(event.target.value) })}
+                    max={maximumGuestCount}
+                    min={minimumGuestCount}
+                    onChange={(event) =>
+                      updateQuote({ guestCount: normalizeGuestCount(Number(event.target.value)) })
+                    }
                     type="range"
                     value={quote.guestCount}
                   />
@@ -305,15 +308,41 @@ function App() {
                               + {formatCurrency(packageOption.pricePerGuest)} per guest
                             </span>
                           </span>
+                          <span className="mt-4 grid gap-3 text-sm text-[#536058]">
+                            <span>
+                              <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-[#7b5d26]">
+                                Included
+                              </span>
+                              <span className="mt-1 block leading-6">
+                                {packageOption.included.join(', ')}
+                              </span>
+                            </span>
+                            <span>
+                              <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-[#7b5d26]">
+                                Recommended for
+                              </span>
+                              <span className="mt-1 block leading-6">
+                                {packageOption.recommendedFor}
+                              </span>
+                            </span>
+                          </span>
                         </span>
                       </button>
                     )
                   })}
                 </div>
               </div>
+
+              <div className="rounded-lg border border-[#ded4c4] bg-white p-4 shadow-sm md:hidden">
+                <ExtrasPanelContent
+                  listClassName="mt-5 grid gap-3"
+                  selectedExtraIds={quote.selectedExtraIds}
+                  onToggleExtra={toggleExtra}
+                />
+              </div>
             </section>
 
-            <aside className="rounded-lg border border-[#17231f] bg-[#17231f] p-4 text-white shadow-sm">
+            <aside className="quote-summary print-hidden self-start rounded-lg border border-[#17231f] bg-[#17231f] p-4 text-white shadow-sm lg:mb-5 lg:h-fit lg:sticky lg:top-6">
               <div
                 aria-label="Event table with warm lighting"
                 className="min-h-48 rounded-lg bg-cover bg-center"
@@ -348,7 +377,10 @@ function App() {
             </aside>
           </div>
 
-          <section className="scroll-mt-4 border-t border-[#ddd2bd] pt-5" id="proposal">
+          <section
+            className="printable-proposal scroll-mt-4 border-t border-[#ddd2bd] pt-5"
+            id="proposal"
+          >
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <p className="flex items-center gap-2 text-sm font-semibold text-[#6f5b32]">
@@ -361,7 +393,7 @@ function App() {
                 <p className="mt-2 text-sm leading-6 text-[#536058]">{proposalSummary.subtitle}</p>
               </div>
 
-              <div className="flex flex-wrap gap-2 print:hidden">
+              <div className="proposal-actions print-hidden flex flex-wrap gap-2 print:hidden">
                 <button
                   className="inline-flex items-center gap-2 rounded-lg border border-[#cfc3ae] bg-white px-3 py-2 text-sm font-semibold text-[#18231f] transition hover:border-[#1d6a56]"
                   onClick={handleCopyWhatsAppMessage}
@@ -432,6 +464,10 @@ function App() {
                     ))}
                   </ul>
                 </div>
+
+                <p className="border-t border-[#e4d9c8] pt-4 text-sm leading-6 text-[#536058]">
+                  {proposalSummary.validityNote}
+                </p>
               </div>
 
               <aside className="rounded-lg border border-[#17231f] bg-[#17231f] p-4 text-white">
@@ -458,67 +494,77 @@ function App() {
         </motion.div>
 
         <motion.aside
-          className="flex min-h-[calc(100svh-2rem)] flex-col gap-5 rounded-lg border border-[#ded4c4] bg-white p-4 shadow-sm md:sticky md:top-4"
+          className="extras-panel print-hidden hidden flex-col gap-5 rounded-lg border border-[#ded4c4] bg-white p-4 shadow-sm md:sticky md:top-4 md:flex md:max-h-[calc(100svh-2rem)]"
           initial={{ opacity: 0, x: 18 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.45, delay: 0.08, ease: 'easeOut' }}
         >
-          <div>
-            <p className="text-sm font-semibold text-[#6f5b32]">4. Extras</p>
-            <p className="mt-1 text-sm leading-6 text-[#66716a]">
-              Select add-ons and review the impact immediately.
-            </p>
-          </div>
-
-          <div className="grid gap-3 overflow-auto pr-1">
-            {extras.map((extra) => {
-              const isSelected = quote.selectedExtraIds.includes(extra.id)
-
-              return (
-                <button
-                  className={`rounded-lg border p-4 text-left transition ${
-                    isSelected
-                      ? 'border-[#1d6a56] bg-[#e8f2ed]'
-                      : 'border-[#ded4c4] bg-[#fbfaf6] hover:border-[#b9aa90]'
-                  }`}
-                  key={extra.id}
-                  onClick={() => toggleExtra(extra.id)}
-                  type="button"
-                >
-                  <span className="flex items-start justify-between gap-3">
-                    <span>
-                      <span className="flex items-center gap-2 font-semibold">
-                        {isSelected ? <Check aria-hidden="true" className="h-4 w-4" /> : null}
-                        {extra.name}
-                      </span>
-                      <span className="mt-1 block text-sm leading-6 text-[#66716a]">
-                        {extra.description}
-                      </span>
-                    </span>
-                    <span className="shrink-0 text-right text-sm font-semibold text-[#1d6a56]">
-                      {formatCurrency(extra.price)}
-                      <span className="block text-xs font-medium text-[#66716a]">
-                        {extra.priceType === 'perGuest' ? 'per guest' : 'fixed'}
-                      </span>
-                    </span>
-                  </span>
-                </button>
-              )
-            })}
-          </div>
-
-          <div className="mt-auto rounded-lg bg-[#f5f1e8] p-4">
-            <p className="flex items-center gap-2 text-sm font-semibold text-[#6f5b32]">
-              <MessageCircle aria-hidden="true" className="h-4 w-4" />
-              Proposal module
-            </p>
-            <p className="mt-2 text-sm leading-6 text-[#536058]">
-              The printable proposal, WhatsApp message and print action now build on this quote state.
-            </p>
-          </div>
+          <ExtrasPanelContent
+            listClassName="grid min-h-0 flex-1 gap-3 overflow-auto pr-1"
+            selectedExtraIds={quote.selectedExtraIds}
+            onToggleExtra={toggleExtra}
+          />
         </motion.aside>
       </section>
     </main>
+  )
+}
+
+function ExtrasPanelContent({
+  listClassName,
+  selectedExtraIds,
+  onToggleExtra,
+}: {
+  listClassName: string
+  selectedExtraIds: string[]
+  onToggleExtra: (extraId: string) => void
+}) {
+  return (
+    <>
+      <div>
+        <p className="text-sm font-semibold text-[#6f5b32]">4. Extras</p>
+        <p className="mt-1 text-sm leading-6 text-[#66716a]">
+          Select add-ons and review the impact immediately.
+        </p>
+      </div>
+
+      <div className={listClassName}>
+        {extras.map((extra) => {
+          const isSelected = selectedExtraIds.includes(extra.id)
+
+          return (
+            <button
+              className={`rounded-lg border p-4 text-left transition ${
+                isSelected
+                  ? 'border-[#1d6a56] bg-[#e8f2ed]'
+                  : 'border-[#ded4c4] bg-[#fbfaf6] hover:border-[#b9aa90]'
+              }`}
+              key={extra.id}
+              onClick={() => onToggleExtra(extra.id)}
+              type="button"
+            >
+              <span className="flex items-start justify-between gap-3">
+                <span>
+                  <span className="flex items-center gap-2 font-semibold">
+                    {isSelected ? <Check aria-hidden="true" className="h-4 w-4" /> : null}
+                    {extra.name}
+                  </span>
+                  <span className="mt-1 block text-sm leading-6 text-[#66716a]">
+                    {extra.description}
+                  </span>
+                </span>
+                <span className="shrink-0 text-right text-sm font-semibold text-[#1d6a56]">
+                  {formatCurrency(extra.price)}
+                  <span className="block text-xs font-medium text-[#66716a]">
+                    {extra.priceType === 'perGuest' ? 'per guest' : 'fixed'}
+                  </span>
+                </span>
+              </span>
+            </button>
+          )
+        })}
+      </div>
+    </>
   )
 }
 
