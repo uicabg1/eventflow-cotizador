@@ -2,11 +2,13 @@
 
 Static web app for an event business quote builder. EventFlow lets users configure an event, compare packages, add extras and prepare a professional proposal without requiring a backend.
 
+Live demo: https://eventflow-cotizador.vercel.app
+
 ## Current Status
 
-Phase 5 is complete: the app has quote pricing logic, tested quote state helpers, a live pricing wizard, a client-ready proposal module, local persistence and print polish.
+Phase 6 is in progress: the MVP is complete, deployed to Vercel and being prepared as a portfolio case study.
 
-Phase 6 is planned: portfolio polish, deployment and demo assets.
+The app includes quote pricing logic, tested quote state helpers, a live pricing wizard, a client-ready proposal module, local persistence, print polish and responsive review.
 
 ## Stack
 
@@ -19,7 +21,7 @@ Phase 6 is planned: portfolio polish, deployment and demo assets.
 - date-fns
 - Vitest
 - localStorage for quote persistence
-- Vercel planned for deployment
+- Vercel for deployment
 
 ## Project Structure
 
@@ -53,6 +55,7 @@ pnpm preview
 - `docs/fase-4-propuesta-final.md`: completed proposal, WhatsApp and print module.
 - `docs/fase-5-cierre-brechas-mvp.md`: completed MVP gap closure.
 - `docs/fase-6-portafolio-despliegue.md`: planned portfolio, deployment and demo handoff.
+- `docs/caso-estudio-eventflow.md`: portfolio case study.
 - `eventflow-cotizador-interactivo.md`: full product spec and implementation direction.
 
 ## Development Notes

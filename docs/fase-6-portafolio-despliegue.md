@@ -1,7 +1,7 @@
 # Fase 6: Portafolio Y Despliegue
 
 Fecha: 2026-04-28  
-Estado: documentacion inicial, pendiente de implementacion
+Estado: ejecutada localmente, pendiente publicar cambios finales en GitHub
 
 ## Objetivo
 
@@ -23,6 +23,18 @@ La fase 6 debe agregar:
 - Caso de estudio corto para portafolio.
 - Revision visual final en desktop y mobile.
 - Decision documentada sobre visibilidad del repositorio.
+
+## Resultado
+
+La fase 6 dejo el proyecto preparado como pieza de portafolio:
+
+- Verificacion base ejecutada con `pnpm test`, `pnpm lint` y `pnpm build`.
+- Revision visual desktop/mobile ejecutada con Playwright.
+- Capturas finales generadas en `output/playwright/`.
+- Demo desplegada en Vercel: `https://eventflow-cotizador.vercel.app`.
+- README actualizado con la URL de demo.
+- Caso de estudio creado en `docs/caso-estudio-eventflow.md`.
+- Decision de visibilidad documentada: mantener privado hasta hacer commit/push de los cambios finales de Fase 6.
 
 ## Fuera De Alcance
 
@@ -87,4 +99,11 @@ El repositorio debe mantenerse privado hasta confirmar que:
 - El README contiene la URL correcta.
 - Las capturas o el caso de estudio no muestran datos sensibles.
 
-Cuando esas condiciones se cumplan, se puede hacer publico para usarlo como evidencia de portafolio.
+Revision 2026-04-28:
+
+- La demo desplegada carga correctamente.
+- El README local contiene la URL correcta.
+- Las capturas y el caso de estudio no muestran datos sensibles.
+- El repositorio remoto todavia no contiene estos cambios finales porque estan pendientes de commit/push.
+
+Decision: mantener privado por ahora y hacerlo publico despues de publicar los cambios finales de Fase 6 en GitHub.

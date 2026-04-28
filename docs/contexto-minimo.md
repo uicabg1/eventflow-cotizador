@@ -65,7 +65,15 @@ Fase 6 documentacion iniciada:
 
 - Registro inicial creado en `docs/fase-6-portafolio-despliegue.md`.
 - Alcance planeado: pulido de portafolio, despliegue en Vercel, capturas finales, README con demo y caso de estudio.
-- Estado: pendiente de implementacion; no ampliar producto ni agregar backend.
+- Verificacion base de Fase 6 ejecutada el 2026-04-28: `pnpm test`, `pnpm lint` y `pnpm build`.
+- Revision visual desktop/mobile ejecutada el 2026-04-28 con Playwright en `http://localhost:5173/`.
+- Capturas finales del flujo preparadas el 2026-04-28 en `output/playwright/`.
+- Despliegue en Vercel completado el 2026-04-28 con `npx vercel deploy --yes`.
+- Demo publica: `https://eventflow-cotizador.vercel.app`.
+- README actualizado el 2026-04-28 con la URL de demo.
+- Caso de estudio creado el 2026-04-28 en `docs/caso-estudio-eventflow.md`.
+- Decision de visibilidad revisada el 2026-04-28: mantener privado hasta hacer commit/push de los cambios finales de Fase 6.
+- Estado: tareas planeadas de Fase 6 ejecutadas; pendiente publicar cambios finales en GitHub antes de hacer publico el repositorio.
 
 ## Estado GitHub
 
@@ -104,6 +112,7 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 - `docs/fase-4-propuesta-final.md`: registro de propuesta final, WhatsApp e impresion.
 - `docs/fase-5-cierre-brechas-mvp.md`: cierre verificado de brechas del MVP.
 - `docs/fase-6-portafolio-despliegue.md`: plan de portafolio, despliegue y demo.
+- `docs/caso-estudio-eventflow.md`: caso de estudio breve para portafolio.
 - `docs/eventflow-cotizador-interactivo.md`: especificacion larga del producto.
 - `src/data/eventTypes.ts`: tipos de evento.
 - `src/data/packages.ts`: paquetes.
@@ -124,17 +133,13 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 
 ## Siguiente Paso
 
-Siguiente paso sugerido: implementar fase 6 de pulido de portafolio y despliegue.
+Siguiente paso sugerido: publicar cambios finales de Fase 6 en GitHub.
 
 Orden recomendado:
 
-1. Ejecutar `pnpm test`, `pnpm lint` y `pnpm build`.
-2. Revisar visualmente desktop y mobile.
-3. Preparar capturas finales del flujo.
-4. Desplegar en Vercel.
-5. Actualizar README con URL de demo cuando exista.
-6. Redactar caso de estudio para portafolio.
-7. Revisar si el repositorio debe pasar a publico despues de tener demo presentable.
+1. Revisar diff final de Fase 6.
+2. Commit y push de README, contexto minimo, caso de estudio, capturas y `.gitignore`.
+3. Despues del push, cambiar visibilidad del repo a publico si se desea usarlo como evidencia de portafolio.
 
 ## Ultima Validacion
 
@@ -149,6 +154,98 @@ Resultado:
 - `pnpm test`: 7 archivos de prueba passed, 21 tests passed.
 - `pnpm lint`: sin errores reportados.
 - `pnpm build`: build generado correctamente en `dist/`.
+
+Nota 2026-04-28: esta validacion corresponde a la primera tarea ejecutada de Fase 6.
+
+## Ultima Revision Visual
+
+Fecha: 2026-04-28
+
+Se reviso con Playwright sobre servidor local `pnpm dev`:
+
+- Desktop: 1440 x 1100, sin overflow horizontal, sin errores de consola, hero/wizard/resumen/extras visibles en el primer viewport.
+- Mobile: 390 x 844, sin overflow horizontal, sin errores de consola, tarjetas apiladas correctamente.
+- Mobile propuesta: controles de WhatsApp e impresion visibles y sin encimes en la seccion final.
+
+## Capturas Finales
+
+Fecha: 2026-04-28
+
+Capturas generadas con Playwright sobre servidor local `pnpm dev`:
+
+- `output/playwright/eventflow-desktop-initial.png`: pantalla inicial desktop.
+- `output/playwright/eventflow-desktop-comparison.png`: comparador de paquetes desktop.
+- `output/playwright/eventflow-desktop-proposal.png`: propuesta final desktop.
+- `output/playwright/eventflow-mobile-initial.png`: vista inicial mobile.
+
+## Despliegue Vercel
+
+Fecha: 2026-04-28
+
+Comandos ejecutados:
+
+```bash
+npx vercel --version
+npx vercel whoami
+npx vercel deploy --yes
+curl -I -L https://eventflow-cotizador.vercel.app
+```
+
+Resultado:
+
+- `npx vercel --version`: Vercel CLI 52.0.0 disponible via `npx`.
+- `npx vercel deploy --yes`: deployment completado en Vercel.
+- URL de deployment: `https://eventflow-cotizador-gqni5yt6n-uicabgadiel67-1227s-projects.vercel.app`.
+- Alias publico: `https://eventflow-cotizador.vercel.app`.
+- Inspector: `https://vercel.com/uicabgadiel67-1227s-projects/eventflow-cotizador/BZrB9wJWN5nF3bF6uaUx56XUfiT7`.
+- Verificacion URL: `curl -I -L` devuelve `HTTP/2 200`.
+- Nota: Vercel creo `.vercel/project.json` local y agrego `.vercel` a `.gitignore`.
+- Nota: el intento de conectar el repo GitHub a Vercel fallo por falta de Login Connection de GitHub en Vercel; el deployment manual si quedo publicado.
+
+## README Publico
+
+Fecha: 2026-04-28
+
+Actualizacion ejecutada:
+
+- `README.md` incluye `https://eventflow-cotizador.vercel.app`.
+- Estado publico del proyecto descrito como Fase 6 en progreso.
+- Stack actualizado para reflejar Vercel como despliegue activo, no solo planeado.
+
+## Caso De Estudio
+
+Fecha: 2026-04-28
+
+Archivo creado:
+
+- `docs/caso-estudio-eventflow.md`
+
+Contenido:
+
+- Resumen del proyecto.
+- Problema.
+- Solucion.
+- Decisiones tecnicas.
+- Calidad y verificacion.
+- Resultado.
+- Siguientes mejoras posibles.
+
+## Decision De Visibilidad
+
+Fecha: 2026-04-28
+
+Revision:
+
+- Demo publica responde correctamente.
+- README local ya incluye la URL de demo.
+- Capturas finales no contienen datos sensibles.
+- GitHub reporta el repositorio `uicabg1/eventflow-cotizador` como privado.
+- Hay cambios locales de Fase 6 todavia sin commit/push.
+
+Decision:
+
+- Mantener el repositorio privado por ahora.
+- Hacerlo publico despues de subir los cambios finales de Fase 6, para que GitHub muestre README, demo, capturas y caso de estudio actualizados.
 
 ## Reglas De Trabajo
 
