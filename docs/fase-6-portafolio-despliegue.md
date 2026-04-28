@@ -1,7 +1,7 @@
 # Fase 6: Portafolio Y Despliegue
 
 Fecha: 2026-04-28  
-Estado: ejecutada localmente, pendiente publicar cambios finales en GitHub
+Estado: completada y publicada
 
 ## Objetivo
 
@@ -34,7 +34,8 @@ La fase 6 dejo el proyecto preparado como pieza de portafolio:
 - Demo desplegada en Vercel: `https://eventflow-cotizador.vercel.app`.
 - README actualizado con la URL de demo.
 - Caso de estudio creado en `docs/caso-estudio-eventflow.md`.
-- Decision de visibilidad documentada: mantener privado hasta hacer commit/push de los cambios finales de Fase 6.
+- Cambios finales publicados en GitHub con commit `7d21c8b docs: publish phase 6 portfolio assets`.
+- Repositorio cambiado a publico para usarse como evidencia de portafolio.
 
 ## Fuera De Alcance
 
@@ -91,9 +92,9 @@ Tambien se debe revisar manualmente:
 - Flujo completo desde seleccion inicial hasta propuesta final.
 - URL desplegada en navegador.
 
-## Decision Pendiente
+## Decision De Visibilidad
 
-El repositorio debe mantenerse privado hasta confirmar que:
+El repositorio debia mantenerse privado hasta confirmar que:
 
 - La demo desplegada carga correctamente.
 - El README contiene la URL correcta.
@@ -102,8 +103,8 @@ El repositorio debe mantenerse privado hasta confirmar que:
 Revision 2026-04-28:
 
 - La demo desplegada carga correctamente.
-- El README local contiene la URL correcta.
+- El README en GitHub contiene la URL correcta.
 - Las capturas y el caso de estudio no muestran datos sensibles.
-- El repositorio remoto todavia no contiene estos cambios finales porque estan pendientes de commit/push.
+- El repositorio remoto contiene los cambios finales de Fase 6.
 
-Decision: mantener privado por ahora y hacerlo publico despues de publicar los cambios finales de Fase 6 en GitHub.
+Decision: repositorio publico para usarse como evidencia de portafolio.

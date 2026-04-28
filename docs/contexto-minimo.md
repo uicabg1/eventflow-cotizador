@@ -61,7 +61,7 @@ Fase 5 completada:
 - La Fase 5 cierra el MVP: cotizacion, comparador de paquetes, resumen en vivo, propuesta, WhatsApp, impresion limpia, persistencia local, validacion de invitados y responsive basico.
 - La fase documental de resumen/comparador ya no se mantiene como fase separada; ese alcance queda absorbido por el cierre de Fase 5.
 
-Fase 6 documentacion iniciada:
+Fase 6 completada:
 
 - Registro inicial creado en `docs/fase-6-portafolio-despliegue.md`.
 - Alcance planeado: pulido de portafolio, despliegue en Vercel, capturas finales, README con demo y caso de estudio.
@@ -72,8 +72,9 @@ Fase 6 documentacion iniciada:
 - Demo publica: `https://eventflow-cotizador.vercel.app`.
 - README actualizado el 2026-04-28 con la URL de demo.
 - Caso de estudio creado el 2026-04-28 en `docs/caso-estudio-eventflow.md`.
-- Decision de visibilidad revisada el 2026-04-28: mantener privado hasta hacer commit/push de los cambios finales de Fase 6.
-- Estado: tareas planeadas de Fase 6 ejecutadas; pendiente publicar cambios finales en GitHub antes de hacer publico el repositorio.
+- Cambios finales de Fase 6 publicados en GitHub con commit `7d21c8b docs: publish phase 6 portfolio assets`.
+- Repositorio cambiado a publico el 2026-04-28.
+- Estado: fase 6 completada.
 
 ## Estado GitHub
 
@@ -94,10 +95,14 @@ git push origin main
 Resultado:
 
 ```text
-b2cdcd1 main -> main
+7d21c8b main -> main
 ```
 
-Recomendacion: mantenerlo privado hasta hacer revision visual final y tener demo desplegada. Hacerlo publico cuando exista URL de Vercel presentable.
+Visibilidad actual:
+
+```text
+PUBLIC
+```
 
 ## Stack
 
@@ -133,13 +138,13 @@ React, Vite, TypeScript, Tailwind CSS, Motion for React, lucide-react, date-fns,
 
 ## Siguiente Paso
 
-Siguiente paso sugerido: publicar cambios finales de Fase 6 en GitHub.
+Siguiente paso sugerido: usar EventFlow como evidencia de portafolio.
 
 Orden recomendado:
 
-1. Revisar diff final de Fase 6.
-2. Commit y push de README, contexto minimo, caso de estudio, capturas y `.gitignore`.
-3. Despues del push, cambiar visibilidad del repo a publico si se desea usarlo como evidencia de portafolio.
+1. Agregar la demo al portafolio personal.
+2. Usar `docs/caso-estudio-eventflow.md` como base del caso publico.
+3. Opcional: conectar GitHub con Vercel para despliegues automaticos.
 
 ## Ultima Validacion
 
@@ -237,15 +242,14 @@ Fecha: 2026-04-28
 Revision:
 
 - Demo publica responde correctamente.
-- README local ya incluye la URL de demo.
+- README en GitHub ya incluye la URL de demo.
 - Capturas finales no contienen datos sensibles.
-- GitHub reporta el repositorio `uicabg1/eventflow-cotizador` como privado.
-- Hay cambios locales de Fase 6 todavia sin commit/push.
+- GitHub reporta el repositorio `uicabg1/eventflow-cotizador` como publico.
+- Cambios finales de Fase 6 publicados en `main`.
 
 Decision:
 
-- Mantener el repositorio privado por ahora.
-- Hacerlo publico despues de subir los cambios finales de Fase 6, para que GitHub muestre README, demo, capturas y caso de estudio actualizados.
+- Repositorio publico para usarlo como evidencia de portafolio.
 
 ## Reglas De Trabajo
 
